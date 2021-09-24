@@ -15,5 +15,6 @@ export default ({ tech1, tech2, tech1Votes = 0, tech2Votes = 0 } = {}) => {
     };
   }
 
-  throw new Error("Invalid parameters");
+  // "ValidationError" can be used to assign the correct status code
+  throw new Error("ValidationError: Invalid parameters");
 };
