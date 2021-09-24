@@ -14,6 +14,16 @@ router.get("/", async (_, res) => {
   }
 });
 
+// /matchups/:id
+router.get("/:id", async ({ params: { id } }, res) => {
+  try {
+    const matchup = await matchupController.show(id);
+    res.status(200).json(matchup);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // /matchups/
 router.post("/", async ({ body }, res) => {
   try {
