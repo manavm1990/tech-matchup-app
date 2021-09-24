@@ -40,4 +40,18 @@ router.post("/", async ({ body }, res) => {
   }
 });
 
+// /matchups/:id
+router.put("/:id", async ({ body: { techNum }, params: { id } }, res) => {
+  try {
+    if (typeof techNum === "number") {
+      const matchup = await matchupController.update(id, techNum);
+      res.status(200).json(matchup);
+    } else {
+      res.status(400).json({ error: "Must be a number!" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;
