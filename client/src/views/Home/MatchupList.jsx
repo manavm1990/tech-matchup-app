@@ -14,7 +14,13 @@ function MatchupList({ matchups }) {
 }
 
 MatchupList.propTypes = {
-  matchups: PropTypes.arrayOf(PropTypes.object).isRequired,
+  matchups: PropTypes.arrayOf(
+    PropTypes.shape({
+      // No `.isRequired` b/c it will be empty if there are no matchups
+      type1: PropTypes.string,
+      type2: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default MatchupList;
