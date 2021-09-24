@@ -2,8 +2,7 @@ import api from "@app/services";
 import Card from "components/Card";
 
 // We can name this whatever as it is `export default`
-import List from "components/MatchupList";
-import React from "react";
+import List from "./MatchupList";
 
 function HomePage() {
   const [matchups, setMatchups] = React.useState([]);
