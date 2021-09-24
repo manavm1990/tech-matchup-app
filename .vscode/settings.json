@@ -22,6 +22,7 @@
   "prettier.requireConfig": true,
   "workbench.view.alwaysShowHeaderActions": true,
   "cSpell.words": [
+    "matchups",
     "techdb"
   ]
 }
