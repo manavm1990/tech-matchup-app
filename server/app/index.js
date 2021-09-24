@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import pino from "express-pino-logger";
 import config from "./config.js";
@@ -14,6 +15,12 @@ app.use(
   })
 );
 
+app.use(
+  cors({
+    origin: config.corsOrigin,
+  })
+);
+
 app.get("/", async (_, res) => {
   try {
     const tech = await techController.index();
@@ -22,8 +29,6 @@ app.get("/", async (_, res) => {
     res.status(500).json({ error });
   }
 });
-
-// TODO: Allow cors
 
 // Allow POST requests
 app.use(express.json());
