@@ -1,14 +1,9 @@
-// Entry point for the application
 import express from "express";
 import pino from "express-pino-logger";
 import config from "./config.js";
-// TODO: Import the routes
+import techController from "./controllers/tech.controller.js";
 
 const app = express();
-
-app.get("/", (_, res) => {
-  res.send("Hello World");
-});
 
 // Logging middleware
 app.use(
@@ -18,6 +13,14 @@ app.use(
   })
 );
 
+app.get("/", async (_, res) => {
+  try {
+    const tech = await techController.index();
+    res.json(tech);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 // TODO: Use json middleware (if needed)
 
 // TODO: Mount the routes (maybe 🤔 /api)
