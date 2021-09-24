@@ -8,4 +8,8 @@ export default {
     // https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/#definition
     return conn.insertOne(payload);
   },
+  index() {
+    // https://docs.mongodb.com/manual/reference/method/db.collection.find/#definition
+    return conn.find().toArray();
+  },
 };

@@ -5,6 +5,16 @@ import createMatchup from "./models/matchup.js";
 const router = new Router();
 
 // /matchups/
+router.get("/", async (_, res) => {
+  try {
+    const matchups = await matchupController.index();
+    res.status(200).json(matchups);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// /matchups/
 router.post("/", async ({ body }, res) => {
   try {
     const validatedMatchup = createMatchup(body);
