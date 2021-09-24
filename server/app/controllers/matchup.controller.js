@@ -17,6 +17,8 @@ export default {
     // https://docs.mongodb.com/manual/reference/method/db.collection.findOne/#definition
     return conn.findOne({ _id: ObjectId(id) });
   },
+
+  // TODO: Use Mongo scehma validation to only allow `1` or `2` for the payload.
   update(id, payload) {
     // https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/#definition
     return conn.updateOne(
