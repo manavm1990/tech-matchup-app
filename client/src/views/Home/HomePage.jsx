@@ -1,6 +1,7 @@
 import api from "@app/services";
 import Card from "components/Card";
-
+import HR from "components/HR";
+import React from "react";
 // We can name this whatever as it is `export default`
 import List from "./MatchupList";
 
@@ -20,6 +21,7 @@ function HomePage() {
         Here is a list of matchups you can vote on:
       </h2>
       <List matchups={matchups} />
+      <HR />
     </Card>
   );
 }
