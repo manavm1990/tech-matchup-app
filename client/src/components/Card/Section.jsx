@@ -3,7 +3,7 @@ import React from "react";
 
 function Section({ heading, children }) {
   return (
-    <section className="p-4">
+    <section className="px-4 py-2">
       {/* Is there a heading for this? */}
       {heading ? <h2 className="font-bold text-4xl">{heading}</h2> : null}
       {children}
