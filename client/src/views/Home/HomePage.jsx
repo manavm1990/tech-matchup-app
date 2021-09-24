@@ -10,8 +10,8 @@ function HomePage() {
 
   React.useEffect(() => {
     (async () => {
-      const matchups = await api.index("matchups");
-      setMatchups(matchups);
+      const matchupsData = await api.index("matchups");
+      setMatchups(matchupsData);
     })();
   }, []);
 
