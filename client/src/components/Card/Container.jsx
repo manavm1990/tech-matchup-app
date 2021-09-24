@@ -8,7 +8,7 @@ function Card({ heading, children }) {
       <h1 className="bg-gray-900 font-extrabold text-4xl p-4 text-center text-gray-50">
         {heading}
       </h1>
-      <div className="p-8">{children}</div>
+      {children}
     </section>
   );
 }
