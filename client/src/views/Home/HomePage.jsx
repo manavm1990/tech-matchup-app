@@ -21,6 +21,16 @@ function HomePage() {
         <List matchups={matchups} />
         <HR />
       </Section>
+      <Section heading="Ready to create a new matchup?">
+        <div className="flex my-2 justify-center">
+          <a
+            href="#"
+            className="capitalize bg-red-500 text-xl text-white rounded-md px-6 py-2"
+          >
+            Create matchup!
+          </a>
+        </div>
+      </Section>
     </Container>
   );
 }
