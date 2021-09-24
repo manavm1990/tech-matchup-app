@@ -7,7 +7,7 @@ import techData from "./techData.json";
     const conn = await client.connect();
     await conn.db(config.dbName).collection("tech").insertMany(techData);
     await conn.close();
-    console.info("All done ✅ 🗃️ 🌱");
+    console.info("Technologies seeded! 🌱 🗃️ ");
   } catch (err) {
     console.error(err.message);
   }
