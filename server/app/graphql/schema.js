@@ -22,6 +22,8 @@ export default gql`
 
   type Mutation {
     createMatchup(tech1: String!, tech2: String!): Matchup
+
+    # We don't necessarily need to return the matchup, but it's good to have it
     vote(_id: String!, techNum: Int!): Matchup
   }
 `;
