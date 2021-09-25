@@ -2,7 +2,8 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    matchups(_id: String): [Matchup]
+    matchup(_id: String): Matchup
+    matchups: [Matchup]
     tech: [Tech]
   }
 

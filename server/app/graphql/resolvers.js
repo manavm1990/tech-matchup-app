@@ -5,8 +5,11 @@ import createMatchup from "../models/matchup.js";
 // TODO: Add error handling
 export default {
   Query: {
-    matchups(_, { id }) {
-      return id ? matchupController.show(id) : matchupController.index();
+    matchup(_, { _id }) {
+      return matchupController.show(_id);
+    },
+    matchups() {
+      return matchupController.index();
     },
     tech() {
       return techController.index();
