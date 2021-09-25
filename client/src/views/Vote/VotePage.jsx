@@ -3,6 +3,19 @@ import { Container, Section } from "components/Card";
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 
+const renderBtns = (matchup) =>
+  Array.from({ length: 2 }, (_, i) => ({
+    text: matchup[`tech${i + 1}`],
+  })).map(({ text }, i) => (
+    <button
+      type="button"
+      key={i}
+      className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
+    >
+      {text}
+    </button>
+  ));
+
 function Vote() {
   const [matchup, setMatchup] = React.useState({});
   const { id } = useParams();
@@ -32,21 +45,7 @@ function Vote() {
         </h3>
 
         <div className="flex justify-between gap-2 my-2">
-          <button
-            type="button"
-            className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
-          >
-            {" "}
-            <span className="whitespace-nowrap">Vote for {matchup.tech1}</span>
-          </button>
-
-          <button
-            type="button"
-            className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
-          >
-            {" "}
-            <span className="whitespace-nowrap">Vote for {matchup.tech1}</span>
-          </button>
+          {renderBtns(matchup)}
         </div>
       </Section>
     </Container>
