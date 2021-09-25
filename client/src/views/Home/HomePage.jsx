@@ -20,7 +20,9 @@ const GET_MATCHUPS = gql`
 
 function HomePage() {
   // TODO: 🥅
-  const { loading, data } = useQuery(GET_MATCHUPS);
+  const { loading, data } = useQuery(GET_MATCHUPS, {
+    fetchPolicy: "network-only",
+  });
 
   return (
     <Container heading="Welcome to Tech Matchup!">
