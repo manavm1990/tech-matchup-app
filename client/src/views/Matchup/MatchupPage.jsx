@@ -21,6 +21,11 @@ const renderSections = (techItems) =>
 
 function MatchupPage() {
   const [tech, setTech] = React.useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(Object.fromEntries(new FormData(e.target)));
+  };
 
   React.useEffect(
     () => {
@@ -42,7 +47,10 @@ function MatchupPage() {
 
   return (
     <Container heading="Let's create a matchup!" maxWidth="max-w-xs">
-      <form className="flex flex-col items-center gap-2 mb-6">
+      <form
+        className="flex flex-col items-center gap-2 mb-6"
+        onSubmit={handleSubmit}
+      >
         {renderSections(tech)}
         <button
           type="submit"
