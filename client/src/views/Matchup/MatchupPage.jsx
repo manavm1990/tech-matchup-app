@@ -1,6 +1,7 @@
 import api from "@app/services";
 import { Container, Section } from "components/Card";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Select from "./TechSelect";
 
 const renderSections = (techItems) =>
@@ -21,10 +22,17 @@ const renderSections = (techItems) =>
 
 function MatchupPage() {
   const [tech, setTech] = React.useState([]);
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    api.create(Object.fromEntries(new FormData(e.target)));
+    const submittedMatchup = Object.fromEntries(new FormData(e.target));
+    api.create(submittedMatchup).then((newMatchup) => {
+      history.push(`/matchup/${newMatchup._id}`, {
+        newMatchup,
+      });
+    });
   };
 
   React.useEffect(
