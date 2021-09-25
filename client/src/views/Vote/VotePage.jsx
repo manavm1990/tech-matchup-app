@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Container, Section } from "components/Card";
 import HR from "components/HR";
 import React from "react";
@@ -16,21 +16,33 @@ const GET_MATCHUP = gql`
   }
 `;
 
+const VOTE = gql`
+  mutation VoteMutation($voteTechNum: Int!, $voteId: String!) {
+    vote(techNum: $voteTechNum, _id: $voteId) {
+      _id
+      tech1
+      tech2
+      tech1Votes
+      tech2Votes
+    }
+  }
+`;
+
 function Vote() {
   const { _id } = useParams();
+
+  const [vote] = useMutation(VOTE);
   const { loading, data } = useQuery(GET_MATCHUP, {
     variables: { _id },
   });
 
   const handleClick = (e) => {
-    console.log(e.target.value);
-    // const techNum = Number(e.target.id);
-    // api.update(data.matchup._id, techNum).then(() => {
-    //   setMatchup((prevMatchup) => ({
-    //     ...prevMatchup,
-    //     [`tech${techNum}Votes`]: prevMatchup[`tech${techNum}Votes`] + 1,
-    //   }));
-    // });
+    vote({
+      variables: {
+        voteTechNum: Number(e.target.id),
+        voteId: _id,
+      },
+    });
   };
 
   const renderBtns = (matchup) =>
