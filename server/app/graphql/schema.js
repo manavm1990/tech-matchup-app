@@ -18,4 +18,7 @@ export default gql`
     _id: ID!
     name: String!
   }
+  type Mutation {
+    createMatchup(tech1: String!, tech2: String!): Matchup
+  }
 `;
