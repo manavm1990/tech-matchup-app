@@ -8,7 +8,9 @@ function MatchupList({ matchups }) {
       {matchups.map(({ _id: id, tech1, tech2 }) => (
         <li key={id}>
           <Link to={`matchup/${id}`}>
-            {tech1}&nbsp;vs.&nbsp;{tech2}
+            <span className="font-medium text-xl text-blue-500 hover:underline hover:text-blue-700">
+              {tech1}&nbsp;vs.&nbsp;{tech2}
+            </span>
           </Link>
         </li>
       ))}
