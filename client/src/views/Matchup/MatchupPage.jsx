@@ -54,7 +54,7 @@ function MatchupPage() {
   );
 
   return (
-    <Container heading="Let's create a matchup!" maxWidth="max-w-xs">
+    <Container heading="Let's create a matchup!">
       <form
         className="flex flex-col items-center gap-2 mb-6"
         onSubmit={handleSubmit}

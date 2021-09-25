@@ -27,9 +27,27 @@ function Vote() {
   return (
     <Container heading="Here is the matchup!">
       <Section heading={`${matchup.tech1} vs ${matchup.tech2}`}>
-        <h3 className="font-bold text-4xl">
+        <h3 className="font-bold text-4xl text-center mt-2">
           {matchup.tech1Votes}&nbsp;:&nbsp;{matchup.tech2Votes}
         </h3>
+
+        <div className="flex justify-between gap-2 my-2">
+          <button
+            type="button"
+            className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
+          >
+            {" "}
+            <span className="whitespace-nowrap">Vote for {matchup.tech1}</span>
+          </button>
+
+          <button
+            type="button"
+            className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
+          >
+            {" "}
+            <span className="whitespace-nowrap">Vote for {matchup.tech1}</span>
+          </button>
+        </div>
       </Section>
     </Container>
   );
