@@ -1,4 +1,4 @@
-import api from "@app/services";
+import { gql, useQuery } from "@apollo/client";
 import { Container, Section } from "components/Card";
 import HR from "components/HR";
 import React from "react";
@@ -6,20 +6,30 @@ import { Link } from "react-router-dom";
 // We can name this whatever as it is `export default`
 import List from "./MatchupList";
 
-function HomePage() {
-  const [matchups, setMatchups] = React.useState([]);
+const GET_MATCHUPS = gql`
+  query Query {
+    matchups {
+      _id
+      tech1
+      tech2
+      tech1Votes
+      tech2Votes
+    }
+  }
+`;
 
-  React.useEffect(() => {
-    (async () => {
-      const matchupsData = await api.index("matchups");
-      setMatchups(matchupsData);
-    })();
-  }, []);
+function HomePage() {
+  // TODO: 🥅
+  const { loading, data } = useQuery(GET_MATCHUPS);
 
   return (
     <Container heading="Welcome to Tech Matchup!">
       <Section heading="Here is a list of matchups you can vote on:">
-        <List matchups={matchups} />
+        {loading ? (
+          <p>Please stand by...⏳</p>
+        ) : (
+          <List matchups={data.matchups} />
+        )}
         <HR />
       </Section>
       <Section heading="Ready to create a new matchup?">
