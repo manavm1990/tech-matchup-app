@@ -1,11 +1,17 @@
-import cors from "cors";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import pino from "express-pino-logger";
-import config from "./config.js";
-import techController from "./controllers/tech.controller.js";
-import matchupRouter from "./router.js";
+import http from "http";
+import { resolvers, typeDefs } from "./graphql/index.js";
 
 const app = express();
+const httpServer = http.createServer(app);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
 
 // Logging middleware
 app.use(
@@ -15,25 +21,17 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: config.corsOrigin,
+server
+  .start()
+  .then(() => {
+    server.applyMiddleware({ app });
+
+    httpServer.listen({ port: 4000 }, () => {
+      console.info(
+        `🚀 Server ready at http://localhost:4000${server.graphqlPath}`
+      );
+    });
   })
-);
-
-app.get("/", async (_, res) => {
-  try {
-    const tech = await techController.index();
-    res.json(tech);
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-});
-
-// Allow POST requests
-app.use(express.json());
-app.use("/matchups", matchupRouter);
-
-app.listen(config.port, () => {
-  console.log(`Server 🏃🏾‍♂️ at: http://localhost:${config.port}`);
-});
+  .catch((error) => {
+    console.error("Error starting server: ", error);
+  });
