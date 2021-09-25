@@ -1,9 +1,22 @@
-import { gql, useQuery } from "@apollo/client";
-import api from "@app/services";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Container } from "components/Card";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Form from "./MatchupForm";
+
+// Define mutation
+const CREATE_MATCHUP = gql`
+  # ⚠️ ARGUMENTS MUST MATCH 🔑S FROM FORM SUBMISSION (e.g. name attribute)
+  mutation createMatchup($tech1: String!, $tech2: String!) {
+    createMatchup(tech1: $tech1, tech2: $tech2) {
+      _id
+      tech1
+      tech2
+      tech1Votes
+      tech2Votes
+    }
+  }
+`;
 
 const GET_TECH = gql`
   query Query {
@@ -16,22 +29,27 @@ const GET_TECH = gql`
 
 function MatchupPage() {
   // TODO: 🥅
+  const [
+    // A mutate function that you can call at any time to execute the mutation
+    createMatchup,
+  ] = useMutation(CREATE_MATCHUP, {
+    onCompleted({ createMatchup }) {
+      history.push(`/matchup/${createMatchup._id}`, {
+        newMatchup: createMatchup,
+      });
+    },
+  });
   const { loading, data } = useQuery(GET_TECH);
+
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const submittedMatchup = Object.fromEntries(new FormData(e.target));
-    api.create(submittedMatchup).then((newMatchup) => {
-      history.push(
-        `/matchup/${newMatchup._id}`,
-        // We can add some state here to pass to the next view.
-        // https://github.com/remix-run/history/blob/main/docs/navigation.md#history-api-navigate
-        {
-          newMatchup,
-        }
-      );
+
+    createMatchup({
+      variables: { ...submittedMatchup },
     });
   };
 

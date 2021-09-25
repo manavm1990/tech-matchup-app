@@ -16,9 +16,11 @@ export default {
     },
   },
   Mutation: {
-    createMatchup(_, { tech1, tech2 }) {
+    async createMatchup(_, { tech1, tech2 }) {
       const validatedMatchup = createMatchup({ tech1, tech2 });
-      const { insertedId: _id } = matchupController.create(validatedMatchup);
+      const { insertedId: _id } = await matchupController.create(
+        validatedMatchup
+      );
       return { ...validatedMatchup, _id };
     },
     async vote(_, { _id, techNum }) {
