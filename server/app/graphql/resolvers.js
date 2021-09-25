@@ -2,6 +2,7 @@ import matchupController from "../controllers/matchup.controller.js";
 import techController from "../controllers/tech.controller.js";
 import createMatchup from "../models/matchup.js";
 
+// TODO: Add error handling
 export default {
   Query: {
     matchups(_, { id }) {
@@ -17,8 +18,12 @@ export default {
       const { insertedId: _id } = matchupController.create(validatedMatchup);
       return { ...validatedMatchup, _id };
     },
-    vote({ _id, techNum }) {
-      return matchupController.update(_id, techNum);
+    async vote(_, { _id, techNum }) {
+      // This only gives back the id
+      await matchupController.update(_id, techNum);
+
+      // This gives back the updated matchup
+      return matchupController.show(_id);
     },
   },
 };
