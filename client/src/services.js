@@ -5,9 +5,11 @@ const BASE_URL = "http://localhost:5000";
 
 export default {
   create(matchup) {
-    return ky.post(`${BASE_URL}/matchups`, {
-      json: matchup,
-    });
+    return ky
+      .post(`${BASE_URL}/matchups`, {
+        json: matchup,
+      })
+      .json();
   },
   index(type) {
     // Blank type means all tech

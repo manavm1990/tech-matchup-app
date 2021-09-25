@@ -29,7 +29,11 @@ router.post("/", async ({ body }, res) => {
   try {
     const validatedMatchup = createMatchup(body);
     const { insertedId } = await matchupController.create(validatedMatchup);
-    res.status(201).json(insertedId);
+    res.status(201).json({
+      // Keeping 🔑 consistent with Mongo
+      _id: insertedId,
+      ...validatedMatchup,
+    });
   } catch (error) {
     // Assign correct status code - client issue or server issue?
     if (error.message.startsWith("ValidationError")) {
