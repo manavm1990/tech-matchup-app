@@ -2,7 +2,7 @@ import api from "@app/services";
 import { Container, Section } from "components/Card";
 import HR from "components/HR";
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 function Vote() {
   const [matchup, setMatchup] = React.useState({});
@@ -60,6 +60,16 @@ function Vote() {
           {renderBtns(matchup)}
         </div>
         <HR />
+      </Section>
+      <Section>
+        <div className="flex my-2 justify-center">
+          <Link
+            to="/"
+            className="capitalize bg-red-500 text-xl text-white rounded-md px-6 py-2"
+          >
+            View all matchups
+          </Link>
+        </div>
       </Section>
     </Container>
   );
