@@ -18,7 +18,7 @@ function App() {
         <Router>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/matchup" component={MatchupPage} />
-          <Route exact path="/matchup/:id" component={Vote} />
+          <Route exact path="/matchup/:_id" component={Vote} />
         </Router>
       </ApolloProvider>
     </main>

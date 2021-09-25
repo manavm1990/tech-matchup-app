@@ -1,26 +1,36 @@
-import api from "@app/services";
+import { gql, useQuery } from "@apollo/client";
 import { Container, Section } from "components/Card";
 import HR from "components/HR";
 import React from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+const GET_MATCHUP = gql`
+  query matchup($_id: String!) {
+    matchup(_id: $_id) {
+      _id
+      tech1
+      tech2
+      tech1Votes
+      tech2Votes
+    }
+  }
+`;
 
 function Vote() {
-  const [matchup, setMatchup] = React.useState({});
-  const { id } = useParams();
-
-  // We will attempt to extract the state that we passed in via history.
-  const {
-    location: { state },
-  } = useHistory();
+  const { _id } = useParams();
+  const { loading, data } = useQuery(GET_MATCHUP, {
+    variables: { _id },
+  });
 
   const handleClick = (e) => {
-    const techNum = Number(e.target.id);
-    api.update(matchup._id, techNum).then(() => {
-      setMatchup((prevMatchup) => ({
-        ...prevMatchup,
-        [`tech${techNum}Votes`]: prevMatchup[`tech${techNum}Votes`] + 1,
-      }));
-    });
+    console.log(e.target.value);
+    // const techNum = Number(e.target.id);
+    // api.update(data.matchup._id, techNum).then(() => {
+    //   setMatchup((prevMatchup) => ({
+    //     ...prevMatchup,
+    //     [`tech${techNum}Votes`]: prevMatchup[`tech${techNum}Votes`] + 1,
+    //   }));
+    // });
   };
 
   const renderBtns = (matchup) =>
@@ -39,41 +49,35 @@ function Vote() {
       </button>
     ));
 
-  React.useEffect(() => {
-    // Do we have a matchup from history or do we need to get it from the server?
-    if (state?.newMatchup) {
-      // We avoid making a call to the server if we have a matchup from history.
-      setMatchup(state?.newMatchup);
-    } else {
-      (async () => {
-        const matchupData = await api.show(id);
-        setMatchup(matchupData);
-      })();
-    }
-  }, [id, state?.newMatchup]);
-
   return (
     <Container heading="Here is the matchup!">
-      <Section heading={`${matchup.tech1} vs ${matchup.tech2}`}>
-        <h3 className="font-bold text-4xl text-center mt-2">
-          {matchup.tech1Votes}&nbsp;:&nbsp;{matchup.tech2Votes}
-        </h3>
+      {loading ? (
+        <p>Please stand by...⏳</p>
+      ) : (
+        // Alias for Fragment tag - avoids extra `div` tag
+        <>
+          <Section heading={`${data.matchup.tech1} vs ${data.matchup.tech2}`}>
+            <h3 className="font-bold text-4xl text-center mt-2">
+              {data.matchup.tech1Votes}&nbsp;:&nbsp;{data.matchup.tech2Votes}
+            </h3>
 
-        <div className="flex justify-between gap-2 my-2">
-          {renderBtns(matchup)}
-        </div>
-        <HR />
-      </Section>
-      <Section>
-        <div className="flex my-2 justify-center">
-          <Link
-            to="/"
-            className="capitalize bg-red-500 text-xl text-white rounded-md px-6 py-2"
-          >
-            View all matchups
-          </Link>
-        </div>
-      </Section>
+            <div className="flex justify-between gap-2 my-2">
+              {renderBtns(data.matchup)}
+            </div>
+            <HR />
+          </Section>
+          <Section>
+            <div className="flex my-2 justify-center">
+              <Link
+                to="/"
+                className="capitalize bg-red-500 text-xl text-white rounded-md px-6 py-2"
+              >
+                View all matchups
+              </Link>
+            </div>
+          </Section>
+        </>
+      )}
     </Container>
   );
 }

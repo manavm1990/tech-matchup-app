@@ -34,9 +34,7 @@ function MatchupPage() {
     createMatchup,
   ] = useMutation(CREATE_MATCHUP, {
     onCompleted({ createMatchup }) {
-      history.push(`/matchup/${createMatchup._id}`, {
-        newMatchup: createMatchup,
-      });
+      history.push(`/matchup/${createMatchup._id}`);
     },
   });
   const { loading, data } = useQuery(GET_TECH);
