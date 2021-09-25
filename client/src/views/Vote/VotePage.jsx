@@ -13,12 +13,18 @@ function Vote() {
   } = useHistory();
 
   const handleClick = (e) => {
-    console.log(e.target.id);
+    const techNum = Number(e.target.id);
+    api.update(matchup._id, techNum).then(() => {
+      setMatchup((prevMatchup) => ({
+        ...prevMatchup,
+        [`tech${techNum}Votes`]: prevMatchup[`tech${techNum}Votes`] + 1,
+      }));
+    });
   };
 
   const renderBtns = (matchup) =>
     Array.from({ length: 2 }, (_, i) => ({
-      buttonId: `tech${i + 1}Votes`,
+      buttonId: i + 1,
       text: matchup[`tech${i + 1}`],
     })).map(({ buttonId, text }) => (
       <button
