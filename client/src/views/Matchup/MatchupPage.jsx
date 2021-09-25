@@ -1,11 +1,22 @@
+import { gql, useQuery } from "@apollo/client";
 import api from "@app/services";
 import { Container } from "components/Card";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Form from "./MatchupForm";
 
+const GET_TECH = gql`
+  query Query {
+    tech {
+      _id
+      name
+    }
+  }
+`;
+
 function MatchupPage() {
-  const [tech, setTech] = React.useState([]);
+  // TODO: 🥅
+  const { loading, data } = useQuery(GET_TECH);
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -24,27 +35,13 @@ function MatchupPage() {
     });
   };
 
-  React.useEffect(
-    () => {
-      (async () => {
-        const techData = await api.index();
-        setTech(techData);
-      })();
-    },
-
-    /**
-     * DEPENDENCY ARRAY as the optional second argument to `useEffect`.
-     * This is a way to tell React that the effect should only run when the
-     * dependencies change.
-     *
-     * Here, it's empty so the effect will only run once - on the initial render.
-     */
-    []
-  );
-
   return (
     <Container heading="Let's create a matchup!">
-      <Form submitHandler={handleSubmit} techItems={tech} />
+      {loading ? (
+        <p>Please stand by...⏳</p>
+      ) : (
+        <Form submitHandler={handleSubmit} techItems={data.tech} />
+      )}
     </Container>
   );
 }
