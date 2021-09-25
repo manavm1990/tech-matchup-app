@@ -7,6 +7,8 @@ import { Link, useHistory, useParams } from "react-router-dom";
 function Vote() {
   const [matchup, setMatchup] = React.useState({});
   const { id } = useParams();
+
+  // We will attempt to extract the state that we passed in via history.
   const {
     location: { state },
   } = useHistory();
@@ -40,6 +42,7 @@ function Vote() {
   React.useEffect(() => {
     // Do we have a matchup from history or do we need to get it from the server?
     if (state?.newMatchup) {
+      // We avoid making a call to the server if we have a matchup from history.
       setMatchup(state?.newMatchup);
     } else {
       (async () => {

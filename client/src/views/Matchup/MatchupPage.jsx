@@ -13,9 +13,14 @@ function MatchupPage() {
 
     const submittedMatchup = Object.fromEntries(new FormData(e.target));
     api.create(submittedMatchup).then((newMatchup) => {
-      history.push(`/matchup/${newMatchup._id}`, {
-        newMatchup,
-      });
+      history.push(
+        `/matchup/${newMatchup._id}`,
+        // We can add some state here to pass to the next view.
+        // https://github.com/remix-run/history/blob/main/docs/navigation.md#history-api-navigate
+        {
+          newMatchup,
+        }
+      );
     });
   };
 

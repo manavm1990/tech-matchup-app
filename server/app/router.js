@@ -29,6 +29,8 @@ router.post("/", async ({ body }, res) => {
   try {
     const validatedMatchup = createMatchup(body);
     const { insertedId } = await matchupController.create(validatedMatchup);
+
+    // We want all of the info sent back for the matchup
     res.status(201).json({
       // Keeping 🔑 consistent with Mongo
       _id: insertedId,
