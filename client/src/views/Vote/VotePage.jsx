@@ -1,5 +1,6 @@
 import api from "@app/services";
 import { Container, Section } from "components/Card";
+import HR from "components/HR";
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -58,6 +59,7 @@ function Vote() {
         <div className="flex justify-between gap-2 my-2">
           {renderBtns(matchup)}
         </div>
+        <HR />
       </Section>
     </Container>
   );
