@@ -24,7 +24,7 @@ function MatchupPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(Object.fromEntries(new FormData(e.target)));
+    api.create(Object.fromEntries(new FormData(e.target)));
   };
 
   React.useEffect(
