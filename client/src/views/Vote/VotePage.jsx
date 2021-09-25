@@ -3,19 +3,6 @@ import { Container, Section } from "components/Card";
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-const renderBtns = (matchup) =>
-  Array.from({ length: 2 }, (_, i) => ({
-    text: matchup[`tech${i + 1}`],
-  })).map(({ text }, i) => (
-    <button
-      type="button"
-      key={i}
-      className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
-    >
-      {text}
-    </button>
-  ));
-
 function Vote() {
   const [matchup, setMatchup] = React.useState({});
   const { id } = useParams();
@@ -24,6 +11,26 @@ function Vote() {
       state: { newMatchup },
     },
   } = useHistory();
+
+  const handleClick = (e) => {
+    console.log(e.target.id);
+  };
+
+  const renderBtns = (matchup) =>
+    Array.from({ length: 2 }, (_, i) => ({
+      buttonId: `tech${i + 1}Votes`,
+      text: matchup[`tech${i + 1}`],
+    })).map(({ buttonId, text }) => (
+      <button
+        type="button"
+        key={buttonId}
+        id={buttonId}
+        className="capitalize bg-green-500 text-xl text-white rounded-md px-4 py-2 max-w-min"
+        onClick={handleClick}
+      >
+        {text}
+      </button>
+    ));
 
   React.useEffect(() => {
     // Do we have a matchup from history or do we need to get it from the server?
