@@ -7,9 +7,7 @@ function Vote() {
   const [matchup, setMatchup] = React.useState({});
   const { id } = useParams();
   const {
-    location: {
-      state: { newMatchup },
-    },
+    location: { state },
   } = useHistory();
 
   const handleClick = (e) => {
@@ -40,15 +38,15 @@ function Vote() {
 
   React.useEffect(() => {
     // Do we have a matchup from history or do we need to get it from the server?
-    if (newMatchup) {
-      setMatchup(newMatchup);
+    if (state?.newMatchup) {
+      setMatchup(state?.newMatchup);
     } else {
       (async () => {
         const matchupData = await api.show(id);
         setMatchup(matchupData);
       })();
     }
-  }, [id, newMatchup]);
+  }, [id, state?.newMatchup]);
 
   return (
     <Container heading="Here is the matchup!">
