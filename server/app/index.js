@@ -1,7 +1,6 @@
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
-import pino from "express-pino-logger";
 import http from "http";
 import { resolvers, typeDefs } from "./graphql/index.js";
 
@@ -12,14 +11,6 @@ const server = new ApolloServer({
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
-
-// Logging middleware
-app.use(
-  pino({
-    prettyPrint: { colorize: true, levelFirst: true },
-    messageFormat: "{levelLabel} - {pid} - url:{request.url}",
-  })
-);
 
 server
   .start()

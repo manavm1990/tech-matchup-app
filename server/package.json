@@ -16,12 +16,9 @@
   "dependencies": {
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-pino-logger": "^6.0.0",
     "graphql": "^15.6.0",
-    "mongodb": "^4.1.2",
-    "pino-pretty": "^7.0.1"
+    "mongodb": "^4.1.2"
   }
 }

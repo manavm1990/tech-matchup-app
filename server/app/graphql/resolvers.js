@@ -18,9 +18,13 @@ export default {
   Mutation: {
     async createMatchup(_, { tech1, tech2 }) {
       const validatedMatchup = createMatchup({ tech1, tech2 });
+
+      // Get the newly created id from MongoDB
       const { insertedId: _id } = await matchupController.create(
         validatedMatchup
       );
+
+      // Mixin the id with the original matchup object
       return { ...validatedMatchup, _id };
     },
     async vote(_, { _id, techNum }) {
