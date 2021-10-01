@@ -7,6 +7,7 @@ import MatchupPage from "./views/Matchup/MatchupPage";
 import Vote from "./views/Vote/VotePage";
 
 const client = new ApolloClient({
+  // TODO{manav.misra}: Move this to a config file - client-side env
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });

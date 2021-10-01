@@ -30,7 +30,7 @@ const GET_TECH = gql`
 function MatchupPage() {
   // TODO: 🥅
   const [
-    // A mutate function that you can call at any time to execute the mutation
+    // A mutation function that you can call at any time to execute the mutation
     createMatchup,
   ] = useMutation(CREATE_MATCHUP, {
     onCompleted({ createMatchup }) {
@@ -44,6 +44,7 @@ function MatchupPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Uncontrolled form
     const submittedMatchup = Object.fromEntries(new FormData(e.target));
 
     createMatchup({

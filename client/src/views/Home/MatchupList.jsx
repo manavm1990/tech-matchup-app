@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Destructured prop
 function MatchupList({ matchups }) {
   return (
     <ul className="border-1 border-color-black my-4 list-square ml-12">

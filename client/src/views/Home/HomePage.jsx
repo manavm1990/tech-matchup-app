@@ -19,7 +19,7 @@ const GET_MATCHUPS = gql`
 `;
 
 function HomePage() {
-  // TODO: 🥅
+  // TODO{manav.misra}: 🥅
   const { loading, data } = useQuery(GET_MATCHUPS, {
     fetchPolicy: "network-only",
   });
@@ -27,6 +27,7 @@ function HomePage() {
   return (
     <Container heading="Welcome to Tech Matchup!">
       <Section heading="Here is a list of matchups you can vote on:">
+        {/* Conditional Rendering */}
         {loading ? (
           <p>Please stand by...⏳</p>
         ) : (
