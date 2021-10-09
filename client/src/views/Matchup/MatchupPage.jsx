@@ -48,7 +48,7 @@ function MatchupPage() {
     const submittedMatchup = Object.fromEntries(new FormData(e.target));
 
     createMatchup({
-      variables: { ...submittedMatchup },
+      variables: submittedMatchup,
     });
   };
 
